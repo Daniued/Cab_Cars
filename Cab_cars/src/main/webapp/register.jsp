@@ -18,6 +18,17 @@
             }
         }
     </script>
+        <script>
+        function updateFormAction() {
+            var role = document.getElementById("role").value;
+            var form = document.getElementById("registrationForm");
+            if (role === "driver") {
+                form.action = "<%= request.getContextPath() %>/DriverRegisterServlet";
+            } else {
+                form.action = "<%= request.getContextPath() %>/CustomerRegisterServlet";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
