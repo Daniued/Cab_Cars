@@ -13,7 +13,7 @@ import java.util.Base64;
 
 public class CustomerDAO {
 
-    // Generate a random salt (16 bytes)
+	// Generate a random salt (16 bytes)
     public static String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -32,6 +32,7 @@ public class CustomerDAO {
             throw new RuntimeException("Error hashing password", e);
         }
     }
+
 
     /**
      * Registers a new customer by inserting records into the Users and Customers tables.

@@ -14,8 +14,9 @@ public class LoginDAO {
     public static String hashPassword(String password, String salt) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt.getBytes());
-            byte[] hashedPassword = md.digest(password.getBytes());
+            byte[] saltBytes = Base64.getDecoder().decode(salt);
+            md.update(saltBytes); // Use the decoded salt bytes
+            byte[] hashedPassword = md.digest(password.getBytes("UTF-8"));
             return Base64.getEncoder().encodeToString(hashedPassword);
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,6 +26,16 @@ public class LoginDAO {
 
     // Validate user login
     public static String validateLogin(String username, String password) {
+        // Manual admin login
+        if ("admin".equals(username) && "admin".equals(password)) {
+            return "admin";
+        }
+        
+        // Manual customer login for demonstration
+        if ("customer".equals(username) && "customer".equals(password)) {
+            return "customer";
+        }
+
         Connection conn = DBConnection.getConnection();
         String storedHash = null;
         String storedSalt = null;
@@ -44,9 +55,10 @@ public class LoginDAO {
             conn.close();
 
             // Debugging logs
-            System.out.println("Stored Hash: " + storedHash);
-            System.out.println("Generated Hash: " + hashPassword(password, storedSalt));
-            System.out.println("Salt Used: " + storedSalt);
+            System.out.println("Login - Password Before Hashing: " + password);
+            System.out.println("Login - Salt Used: " + storedSalt);
+            System.out.println("Login - Generated Hash: " + hashPassword(password, storedSalt));
+            System.out.println("Login - Stored Hash: " + storedHash);
             System.out.println("Role from DB: " + role);
 
         } catch (SQLException e) {

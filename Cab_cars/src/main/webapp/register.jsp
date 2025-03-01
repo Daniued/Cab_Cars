@@ -34,7 +34,7 @@
     <div class="container">
         <h2>User Registration</h2>
         <!-- Correct form tag with proper action and method -->
-        <form action="<%= request.getContextPath() %>/CustomerRegisterServlet" method="post">
+        <form action="<%= request.getContextPath() %>/CustomerRegisterServlet"" method="post">
             <label for="role">Select Role:</label>
             <select name="role" id="role" onchange="toggleDriverFields()" required>
                 <option value="customer">Customer</option>
