@@ -38,8 +38,12 @@ public class CustomerRegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String nic = request.getParameter("nic");
-        
-        // (Optional) Print values to console for debugging
+
+        // Generate salt and hash the password
+        String salt = CustomerDAO.generateSalt();
+        String hashedPassword = CustomerDAO.hashPassword(password, salt);
+
+        // Debug prints (optional)
         System.out.println("Received registration data:");
         System.out.println("Username: " + username);
         System.out.println("Name: " + name);
@@ -47,7 +51,9 @@ public class CustomerRegisterServlet extends HttpServlet {
         System.out.println("Phone: " + phone);
         System.out.println("Address: " + address);
         System.out.println("NIC: " + nic);
-        
+        System.out.println("Generated Salt: " + salt);
+        System.out.println("Hashed Password: " + hashedPassword);
+
         // Create Customer bean
         Customer customer = new Customer();
         customer.setUsername(username);
@@ -56,9 +62,10 @@ public class CustomerRegisterServlet extends HttpServlet {
         customer.setPhone(phone);
         customer.setAddress(address);
         customer.setNic(nic);
-        
+        customer.setSalt(salt); // NEW: Store salt in the bean
+
         // Register customer using DAO and capture error message if any
-        String errorMessage = CustomerDAO.registerCustomer(customer, password);
+        String errorMessage = CustomerDAO.registerCustomer(customer, hashedPassword);
         if (errorMessage.isEmpty()) {
             // Redirect to login page (adjust URL as needed)
             response.sendRedirect("index.jsp?message=Registration successful, please login!");

@@ -8,17 +8,19 @@ public class Customer {
     private String phone;
     private String address;
     private String nic;
+    private String salt; // NEW: Added salt field
 
     // Constructors
     public Customer() { }
 
-    public Customer(String username, String name, String email, String phone, String address, String nic) {
+    public Customer(String username, String name, String email, String phone, String address, String nic, String salt) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.nic = nic;
+        this.salt = salt;
     }
 
     // Getters and Setters
@@ -63,5 +65,11 @@ public class Customer {
     }
     public void setNic(String nic) {
         this.nic = nic;
+    }
+    public String getSalt() { // NEW: Getter for salt
+        return salt;
+    }
+    public void setSalt(String salt) { // NEW: Setter for salt
+        this.salt = salt;
     }
 }

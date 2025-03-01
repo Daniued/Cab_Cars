@@ -8,17 +8,19 @@ public class Driver {
     private String license;
     private String vehicleType;
     private String plate;
+    private String salt; // NEW: Added salt field
 
     // Constructors
     public Driver() { }
 
-    public Driver(String username, String name, String phone, String license, String vehicleType, String plate) {
+    public Driver(String username, String name, String phone, String license, String vehicleType, String plate, String salt) {
         this.username = username;
         this.name = name;
         this.phone = phone;
         this.license = license;
         this.vehicleType = vehicleType;
         this.plate = plate;
+        this.salt = salt;
     }
 
     // Getters and Setters
@@ -63,5 +65,11 @@ public class Driver {
     }
     public void setPlate(String plate) {
         this.plate = plate;
+    }
+    public String getSalt() { // NEW: Getter for salt
+        return salt;
+    }
+    public void setSalt(String salt) { // NEW: Setter for salt
+        this.salt = salt;
     }
 }
